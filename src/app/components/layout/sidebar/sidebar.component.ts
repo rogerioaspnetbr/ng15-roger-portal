@@ -1,70 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
-
-interface MenuItem {
-  title: string;
-  icon: string;
-  route?: string;
-  children?: MenuItem[];
-}
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatExpansionModule
-  ],
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
-})
-export class SidebarComponent implements OnInit {
-  isCollapsed = false;
-  menuItems: MenuItem[] = [
-    {
-      title: 'Dashboard',
-      icon: 'dashboard',
-      route: '/dashboard'
-    },
-    {
-      title: 'Usuários',
-      icon: 'people',
-      children: [
-        {
-          title: 'Listar',
-          icon: 'list',
-          route: '/users'
-        },
-        {
-          title: 'Criar',
-          icon: 'add',
-          route: '/users/create'
-        }
-      ]
-    },
-    {
-      title: 'Configurações',
-      icon: 'settings',
-      route: '/settings'
+  imports: [CommonModule, RouterModule],
+  template: `
+    <div class="sidebar-menu">
+      <ul>
+        <li>
+          <a routerLink="/renda-fixa" routerLinkActive="active">
+            Renda Fixa
+          </a>
+        </li>
+      </ul>
+    </div>
+  `,
+  styles: [`
+    .sidebar-menu {
+      padding: 20px;
     }
-  ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  toggleSidebar(): void {
-    this.isCollapsed = !this.isCollapsed;
-  }
-}
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      display: block;
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    a:hover {
+      background-color: #e9ecef;
+    }
+    a.active {
+      background-color: #007bff;
+      color: white;
+    }
+  `]
+})
+export class SidebarComponent { }
