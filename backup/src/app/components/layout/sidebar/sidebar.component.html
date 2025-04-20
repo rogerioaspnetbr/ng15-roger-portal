@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav
+               mode="side"
+               [opened]="!isCollapsed"
+               class="sidenav">
+    <div class="sidenav-header">
+      <h2>Roger Portal</h2>
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <mat-nav-list>
+      <ng-container *ngFor="let item of menuItems">
+        <mat-list-item *ngIf="!item.children" [routerLink]="item.route" routerLinkActive="active">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <span matListItemTitle>{{item.title}}</span>
+        </mat-list-item>
+
+        <mat-expansion-panel *ngIf="item.children" class="menu-panel">
+          <mat-expansion-panel-header>
+            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+            <span matListItemTitle>{{item.title}}</span>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list>
+            <mat-list-item *ngFor="let child of item.children" [routerLink]="child.route" routerLinkActive="active">
+              <mat-icon matListItemIcon>{{child.icon}}</mat-icon>
+              <span matListItemTitle>{{child.title}}</span>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
